@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      @font-face {
+        font-family: "webfont";
+        font-display: swap;
+        src: url("http://at.alicdn.com/t/webfont_a9q4dlsja0o.eot");
+        src: url("http://at.alicdn.com/t/webfont_a9q4dlsja0o.eot?#iefix")
+            format("embedded-opentype"),
+          url("http://at.alicdn.com/t/webfont_a9q4dlsja0o.woff2")
+            format("woff2"),
+          url("http://at.alicdn.com/t/webfont_a9q4dlsja0o.woff") format("woff"),
+          url("http://at.alicdn.com/t/webfont_a9q4dlsja0o.ttf")
+            format("truetype");
+      }
+    </style>
+    <style>
+      #app {
+        color: red;
+        font-size: 100px;
+        font-family: "webfont";
+      }
+      .img {
+        width: 100px;
+        height: 100px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app" style="border: 1px solid blue">
+      1
+      <div style="width: 100px; height: 100px; background-color: aqua"></div>
+      <img
+        class="img"
+        src="https://st-gdx.dancf.com/gaodingx/0/uxms/design/20210126-212218-86f9.png"
+      />
+    </div>
+    <script src="./build/dom-to-image.js"></script>
+    <script>
+      domToImage(document.getElementById("app")).then((res) => {
+        const img = new Image();
+        img.src = res;
+        document.body.appendChild(img);
+      });
+    </script>
+  </body>
+</html>

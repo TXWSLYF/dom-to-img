@@ -1,0 +1,14 @@
+{
+  "name": "dom-to-image",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "alex <1060319328@qq.com>",
+  "license": "MIT",
+  "dependencies": {
+    "typescript": "^4.3.4"
+  },
+  "scripts": {
+    "dev": "tsc -p tsconfig.json -w",
+    "build": "tsc -p tsconfig.json"
+  }
+}

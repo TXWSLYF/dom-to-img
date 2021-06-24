@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div>
+      <p>使用svg创建</p>
+      <svg id="mySvg" width="200" height="200">
+        <line
+          x1="0"
+          y1="0"
+          x2="200"
+          y2="200"
+          style="stroke: rgb(0, 255, 255); stroke-width: 5"
+        />
+        <line
+          x1="0"
+          y1="200"
+          x2="200"
+          y2="0"
+          style="stroke: rgb(255, 0, 255); stroke-width: 5"
+        />
+      </svg>
+    </div>
+    <p></p>
+    <div>
+      <p>使用canvas创建</p>
+      <canvas id="myCanvas" width="200" height="200"
+        >你的浏览器不支持canvas！</canvas
+      >
+    </div>
+    <p></p>
+    <div>
+      <button onClick="canvasBase64()">Canvas 转 Base64</button>
+      <button onClick="svgBase64()">Svg 转 Base64</button>
+      <button onClick="svgPng()">Svg 转 png</button>
+    </div>
+    <p></p>
+    <div>
+      <img id="myImg" src="xxx" />
+      <p>右键保存看格式</p>
+    </div>
+    <script>
+      {
+        /** 注意顺序：1、创建；2、设置属性；3、渲染 **/
+        let can = document.getElementById("myCanvas"); // 获取canvas容器
+        let ctx = can.getContext("2d"); // 创建一个画布
+        let canWid = can.width; // canvas 的宽度
+        let canHei = can.height; // canvas 的高度
+
+        ctx.beginPath(); // 开始一条路径
+        ctx.rect(0, 0, 100, 100); // 创建矩形：rect(x, y, w, h)
+        ctx.fillStyle = "#0000ff"; // 画布填充颜色
+        ctx.fill(); // 实心
+
+        ctx.beginPath(); // 开始一条路径
+        ctx.rect(125, 25, 50, 50); // 创建矩形：rect(x, y, w, h)
+        ctx.fillStyle = "#000000"; // 画布填充颜色
+        ctx.fill(); // 实心
+
+        ctx.beginPath(); // 开始一条路径
+        ctx.arc(50, 150, 25, 0, 2 * Math.PI); // 创建圆：rect(x, y, 半径, 起始角, 结束角, 绘图顺序[可选, false顺, true逆])
+        ctx.fillStyle = "#00ff00"; // 画布填充颜色
+        ctx.fill(); // 实心
+
+        ctx.beginPath(); // 开始一条路径
+        ctx.rect(100, 100, 100, 100); // 创建矩形：rect(x, y, w, h)
+        ctx.fillStyle = "#ff0000"; // 画布填充颜色
+        ctx.fill(); // 实心渲染
+      }
+      {
+        const myImg = document.getElementById("myImg"); // 获取Img
+        // #### Canvas 转 Base64
+        function canvasBase64() {
+          const canvas = document.getElementById("myCanvas");
+          const ImgBase64 = canvas.toDataURL("image/png");
+          console.log(ImgBase64, "Canvas 转 Base64");
+          myImg.src = ImgBase64;
+        }
+        // #### Svg 转 Base64
+        function svgBase64() {
+          const svg = document.getElementById("mySvg");
+          const s = new XMLSerializer().serializeToString(svg);
+          const ImgBase64 = `data:image/svg+xml;base64,${window.btoa(s)}`;
+          console.log(ImgBase64, "Svg 转 Base64");
+          myImg.src = ImgBase64;
+        }
+        // #### Svg 转 png
+        function svgPng() {
+          const svg = document.getElementById("mySvg");
+          const s = new XMLSerializer().serializeToString(svg);
+          const src = `data:image/svg+xml;base64,${window.btoa(s)}`;
+          const img = new Image(); // 创建图片容器承载过渡
+          img.src = src;
+          img.onload = () => {
+            // 图片创建后再执行，转Base64过程
+            const canvas = document.createElement("canvas");
+            canvas.width = img.width;
+            canvas.height = img.height;
+            const context = canvas.getContext("2d");
+            context.drawImage(img, 0, 0);
+            const ImgBase64 = canvas.toDataURL("image/png");
+            console.log(ImgBase64, "Svg 转 png");
+            myImg.src = ImgBase64;
+          };
+        }
+      }
+    </script>
+  </body>
+</html>

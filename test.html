@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 1194 242"
+      width="1194"
+      height="242"
+      id="app"
+    >
+      <foreignObjectEl width="1194" height="242">
+        <div
+          xmlns="http://www.w3.org/1999/xhtml"
+          id="app"
+          style="border: 1px solid blue"
+        >
+          222
+          <div
+            style="width: 100px; height: 100px; background-color: aqua"
+          ></div>
+        </div>
+      </foreignObjectEl>
+    </svg>
+    <script>
+      const svgEl = document.getElementById("app");
+      console.log(new XMLSerializer().serializeToString(svgEl));
+      const imgSvgBase64 = `data:image/svg+xml;base64,${window.btoa(
+        new XMLSerializer().serializeToString(svgEl)
+      )}`;
+      const imgEl = new Image();
+
+      imgEl.src = imgSvgBase64;
+      document.body.appendChild(imgEl);
+    </script>
+  </body>
+</html>
